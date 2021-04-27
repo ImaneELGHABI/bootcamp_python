@@ -13,7 +13,7 @@ def text_analyzer(infile):
             			other +=1
 	return[other,space,lower,upper]
 
-infile=open("ex01.py", "r")
+infile=open("ex03.py", "r")
 print(text_analyzer(infile))
 #print("The text contains "   " characters:\n")
 #print(text_analyzer(infile)[3] " upper letters\n")
