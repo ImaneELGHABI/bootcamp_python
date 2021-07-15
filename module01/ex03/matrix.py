@@ -68,15 +68,19 @@ class Matrix(object):
 				self.data[i][j]-=scalar
 		return self.data
 
-
+		
 	def __mul__(self, matrix):
-		result=[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-		if self.shape[1]==len(matrix):
+		c = [[0 for i in range(self.shape[0])] for k in range(len(matrix[0]))]
+		if self.shape[1]!=len(matrix):
+			raise ValueError("The matrices have different len")
+		elif self.shape[1]==len(matrix):
 			for i in range(self.shape[0]):
-				for j in range(len(matrix[0])):
-					for k in range(self.shape[1]):
-						result[i][j]+=self.data[i][j]*matrix[j][i]
-			return result
+				for k in range(len(matrix[0])):
+					for j in range(self.shape[1]):
+						c[i][k]+=self.data[i][j]*matrix[j][k]
+			return c
+			
+			
 
 	def __rmul__(self, vector):
 		result=[]
@@ -96,31 +100,4 @@ class Matrix(object):
 
 	def __repr__(self):
 		return f"Matrix({str(self)})"
-		
-
-data=([[1,2,3],
-	[4,5,6],
-	[2,4,6]])
-#data=(2,3)
-data1=[[2,2,2],[2,2,2],[2,2,2]]
-vec=[1, 1, 1]
-D=Matrix(data)
-D1=Matrix(data1)
-#print(D)
-#print(D1)
-#print("Matrix+scalar:\n")
-#print(Matrix(data1).__radd__(2))
-#print("Matrix+Matrix:\n")
-#print(Matrix(data).__add__(data1))
-#print("Matrix-scalar:\n")
-#print(Matrix(data).__rsub__(2))
-#print("Matrix-Matrix:\n")
-#print(Matrix(data).__sub__(data1))
-#print("Matrix/Matrix:\n")
-#print(Matrix(data).__truediv__(data1))
-#print("Matrix*Matrix:\n")
-#print(Matrix(data).__mul__(data1))
-#print("Matrix*vector:\n")
-#print(Matrix(data).__rmul__(vec))
-print(Matrix(data).__str__())
-print(Matrix(data).__repr__())		
+			
